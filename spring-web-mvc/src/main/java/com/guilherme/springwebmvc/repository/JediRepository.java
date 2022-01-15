@@ -8,13 +8,14 @@ import java.util.List;
 
 @Repository
 public class JediRepository {
-
+    private List<Jedi> jedi;
     public List<Jedi> getAllJedi(){
-
-        final List<Jedi> jedi = new ArrayList<>();
+        jedi = new ArrayList<>();
         jedi.add(new Jedi("Luke", "Skywalker"));
-
         return jedi;
     }
 
+    public void add(Jedi jedi) {
+        this.jedi.add(jedi);
+    }
 }
