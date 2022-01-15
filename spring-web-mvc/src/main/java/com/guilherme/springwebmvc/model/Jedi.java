@@ -1,7 +1,11 @@
 package com.guilherme.springwebmvc.model;
 
+import org.springframework.lang.NonNull;
+
 public class Jedi {
+
     private String name;
+
     private String lastName;
 
     public Jedi(final String name, final String lastName) {
