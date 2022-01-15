@@ -20,4 +20,14 @@ public class JediController {
         modelAndView.addObject("allJedi", List.of(luke));
         return  modelAndView;
     }
+
+    @GetMapping("/new-jedy")
+    public ModelAndView newJedy(){
+        final ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("new-jedi");
+
+        modelAndView.addObject("jedi", new Jedi());
+        return modelAndView;
+
+    }
 }
