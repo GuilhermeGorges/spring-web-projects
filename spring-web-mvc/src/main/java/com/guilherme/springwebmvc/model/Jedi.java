@@ -1,8 +1,11 @@
 package com.guilherme.springwebmvc.model;
 
 import org.springframework.lang.NonNull;
+import org.springframework.validation.annotation.Validated;
 
 public class Jedi {
+
+
 
     private String name;
 
