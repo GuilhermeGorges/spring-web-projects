@@ -37,4 +37,19 @@ public class JediResource {
     public Jedi createJedi(@Valid @RequestBody Jedi jedi){
         return repository.save(jedi);
     }
+
+    @PutMapping("/api/jedi/{id}")
+    public ResponseEntity<Jedi> updateJedi(@PathVariable("id") Long id, @Valid @RequestBody Jedi dto){
+        final Optional<Jedi> optionalJedi = repository.findById(id);
+        final Jedi jedi;
+
+        if(optionalJedi.isPresent()){
+            jedi = optionalJedi.get();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+        jedi.setName(dto.getName());
+        jedi.setLastName(dto.getLastName());
+        return ResponseEntity.ok(repository.save(jedi));
+    }
 }
