@@ -12,11 +12,11 @@ public class SoldierService {
 
     private SoldierRepository soldierRepository;
 
-    public Soldier getSoldierByID(Long id){
-        Soldier soldier = new Soldier();
-        soldier.setName("João");
-        soldier.setWeapon("Knife");
-        soldier.setBreed("Warrior");
-        return soldier;
+    public Soldier getSoldierByID(final Long id){
+        return soldierRepository.getById(id);
+    }
+
+    public Soldier createSoldier(final Soldier soldier) {
+        return soldierRepository.save(soldier);
     }
 }

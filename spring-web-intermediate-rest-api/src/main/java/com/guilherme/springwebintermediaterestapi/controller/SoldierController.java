@@ -18,11 +18,17 @@ public class SoldierController {
     private SoldierService soldierService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<Soldier> getSoldierByID(@PathVariable("id") Long id){
+    public ResponseEntity<Soldier> getSoldierByID(@PathVariable("id") final Long id){
         final Soldier soldier = soldierService.getSoldierByID(id);
         return ResponseEntity.ok(soldier);
     }
 
-    
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Soldier crateSoldier(@RequestBody final Soldier soldier){
+        return soldierService.createSoldier(soldier);
+    }
+
+
 
 }
