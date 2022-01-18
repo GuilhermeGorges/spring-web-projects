@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
@@ -15,7 +16,14 @@ public class SoldierService {
     private SoldierRepository soldierRepository;
 
     public Soldier getSoldierByID(final Long id){
-        return soldierRepository.getById(id);
+        //return soldierRepository.getById(id);
+
+        final Optional<Soldier> soldier = soldierRepository.findById(id);
+        if(soldier.isPresent()){
+            return soldier.get();
+        } else {
+            throw new RuntimeException();
+        }
     }
 
     public Soldier createSoldier(final Soldier soldier) {
@@ -24,5 +32,21 @@ public class SoldierService {
 
     public List<Soldier> getAllSoldier() {
         return soldierRepository.findAll();
+    }
+
+    public Soldier updateSoldier(Long id, Soldier dto) {
+        final Optional<Soldier> optionalSoldier = soldierRepository.findById(id);
+        final Soldier soldier;
+
+        if(optionalSoldier.isPresent()){
+            soldier = optionalSoldier.get();
+        } else {
+            throw new RuntimeException();
+        }
+        soldier.setName(dto.getName());
+        soldier.setBreed(dto.getBreed());
+        soldier.setWeapon(dto.getWeapon());
+        return soldierRepository.save(soldier);
+
     }
 }

@@ -23,17 +23,21 @@ public class SoldierController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Soldier> getSoldierByID(@PathVariable("id") final Long id){
+    public ResponseEntity<Soldier> getSoldierByID(@PathVariable("id") Long id){
         final Soldier soldier = soldierService.getSoldierByID(id);
         return ResponseEntity.ok(soldier);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Soldier crateSoldier(@RequestBody final Soldier soldier){
+    public Soldier crateSoldier(@RequestBody Soldier soldier){
         return soldierService.createSoldier(soldier);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Soldier> editSoldier(@PathVariable("id") Long id, @RequestBody Soldier dto){
+        return ResponseEntity.ok(soldierService.updateSoldier(id, dto));
+    }
 
 
 }
