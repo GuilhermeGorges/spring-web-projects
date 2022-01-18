@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class SoldierService {
@@ -18,5 +20,9 @@ public class SoldierService {
 
     public Soldier createSoldier(final Soldier soldier) {
         return soldierRepository.save(soldier);
+    }
+
+    public List<Soldier> getAllSoldier() {
+        return soldierRepository.findAll();
     }
 }

@@ -17,6 +17,11 @@ public class SoldierController {
 
     private SoldierService soldierService;
 
+    @GetMapping
+    public List<Soldier> getAllSoldier(){
+        return soldierService.getAllSoldier();
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Soldier> getSoldierByID(@PathVariable("id") final Long id){
         final Soldier soldier = soldierService.getSoldierByID(id);
