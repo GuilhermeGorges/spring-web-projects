@@ -1,6 +1,7 @@
 package com.guilherme.springwebintermediaterestapi.service;
 
 import com.guilherme.springwebintermediaterestapi.dto.Soldier;
+import com.guilherme.springwebintermediaterestapi.exception.SoldierNotFoundException;
 import com.guilherme.springwebintermediaterestapi.repository.SoldierRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class SoldierService {
         if(soldier.isPresent()){
             return soldier.get();
         } else {
-            throw new RuntimeException();
+            throw new SoldierNotFoundException();
         }
     }
 
@@ -41,7 +42,7 @@ public class SoldierService {
         if(optionalSoldier.isPresent()){
             soldier = optionalSoldier.get();
         } else {
-            throw new RuntimeException();
+            throw new SoldierNotFoundException();
         }
         soldier.setName(dto.getName());
         soldier.setBreed(dto.getBreed());
