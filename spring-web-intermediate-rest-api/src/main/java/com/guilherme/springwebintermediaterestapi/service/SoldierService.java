@@ -50,4 +50,9 @@ public class SoldierService {
         return soldierRepository.save(soldier);
 
     }
+
+    public void deleteSoldier(Long id) {
+        final Soldier soldier = getSoldierByID(id);
+        soldierRepository.delete(soldier);
+    }
 }

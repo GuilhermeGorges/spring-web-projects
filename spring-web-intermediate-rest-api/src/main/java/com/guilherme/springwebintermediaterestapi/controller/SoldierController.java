@@ -39,5 +39,10 @@ public class SoldierController {
         return ResponseEntity.ok(soldierService.updateSoldier(id, dto));
     }
 
+    @DeleteMapping("/{id}")
+    public void deleteSoldier(@PathVariable("id")Long id){
+        soldierService.deleteSoldier(id);
+    }
+
 
 }
