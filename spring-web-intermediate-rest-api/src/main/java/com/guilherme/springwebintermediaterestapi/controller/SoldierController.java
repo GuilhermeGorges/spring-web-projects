@@ -18,6 +18,7 @@ public class SoldierController {
     private SoldierService soldierService;
 
     @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     public List<Soldier> getAllSoldier(){
         return soldierService.getAllSoldier();
     }
@@ -40,9 +41,8 @@ public class SoldierController {
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public void deleteSoldier(@PathVariable("id")Long id){
         soldierService.deleteSoldier(id);
     }
-
-
 }
