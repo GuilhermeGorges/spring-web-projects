@@ -10,11 +10,13 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.EmptyStackException;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-@AllArgsConstructor(onConstructor = @__(@Autowired))
+@AllArgsConstructor
 public class SoldierService {
 
     private SoldierRepository soldierRepository;
@@ -40,9 +42,20 @@ public class SoldierService {
     }
 
     public void updateSoldier(Long id, SoldierEditRequest soldierEditRequest) {
-        SoldierEntity soldierEntity = objectMapper.convertValue(soldierEditRequest, SoldierEntity.class);
-        soldierEntity.setId(id);
-        soldierRepository.save(soldierEntity);
+        /*final Optional<SoldierEntity> optionalSoldier  = soldierRepository.findById(id);
+        final SoldierEntity soldierEntity;
+
+        if(optionalSoldier.isPresent()){
+            soldierEntity = optionalSoldier.get();
+        } else {
+            throw new EmptyStackException();
+        }
+        soldierEntity.setName(soldierEditRequest.getName());
+        soldierEntity.setBreed(soldierEditRequest.getBreed());
+        soldierEntity.setStatus(soldierEditRequest.getStatus());
+        soldierEntity.setWeapon(soldierEntity.getWeapon());
+
+        soldierRepository.save(soldierEntity);*/
     }
 
     public void deleteSoldier(Long id) {
