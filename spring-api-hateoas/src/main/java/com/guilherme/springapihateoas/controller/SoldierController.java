@@ -44,8 +44,8 @@ public class SoldierController {
 
     @PutMapping("/{id}")
     public ResponseEntity updateSoldier(@PathVariable() Long id,
-                                        @RequestBody SoldierEditRequest soldierEditRequest) {
-        soldierService.updateSoldier(id, soldierEditRequest);
+                                        @RequestBody Soldier soldier) {
+        soldierService.updateSoldier(id, soldier);
         return ResponseEntity.ok().build();
     }
 

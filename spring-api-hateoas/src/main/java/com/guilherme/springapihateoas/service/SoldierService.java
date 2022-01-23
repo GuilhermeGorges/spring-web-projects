@@ -41,21 +41,21 @@ public class SoldierService {
         soldierRepository.save(soldierEntity);
     }
 
-    public void updateSoldier(Long id, SoldierEditRequest soldierEditRequest) {
-        /*final Optional<SoldierEntity> optionalSoldier  = soldierRepository.findById(id);
+    public void updateSoldier(Long id, Soldier soldier) {
+        final Optional<SoldierEntity> optionalSoldier  = soldierRepository.findById(id);
         final SoldierEntity soldierEntity;
 
         if(optionalSoldier.isPresent()){
             soldierEntity = optionalSoldier.get();
         } else {
-            throw new EmptyStackException();
+            throw new RuntimeException();
         }
-        soldierEntity.setName(soldierEditRequest.getName());
-        soldierEntity.setBreed(soldierEditRequest.getBreed());
-        soldierEntity.setStatus(soldierEditRequest.getStatus());
-        soldierEntity.setWeapon(soldierEntity.getWeapon());
+        soldierEntity.setName(soldier.getName());
+        soldierEntity.setBreed(soldier.getBreed());
+        soldierEntity.setStatus(soldier.getStatus());
+        soldierEntity.setWeapon(soldier.getWeapon());
 
-        soldierRepository.save(soldierEntity);*/
+        soldierRepository.save(soldierEntity);
     }
 
     public void deleteSoldier(Long id) {
