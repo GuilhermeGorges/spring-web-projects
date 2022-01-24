@@ -3,10 +3,9 @@ package com.guilherme.springapihateoas.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.guilherme.springapihateoas.controller.request.SoldierEditRequest;
 import com.guilherme.springapihateoas.controller.response.SoldierResponse;
-import com.guilherme.springapihateoas.dto.Soldier;
+import com.guilherme.springapihateoas.dto.SoldierDTO;
 import com.guilherme.springapihateoas.service.SoldierService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,21 +30,21 @@ public class SoldierController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<SoldierResponse> searchSoldier(@PathVariable() Long id) {
+    public ResponseEntity<SoldierResponse> searchSoldier(@PathVariable Long id) {
         SoldierResponse soldierResponse = soldierService.findSoldier(id);
         return ResponseEntity.status(HttpStatus.OK).body(soldierResponse);
     }
 
     @PostMapping
-    public ResponseEntity createSoldier(@RequestBody Soldier soldier) {
-        soldierService.createSoldier(soldier);
+    public ResponseEntity createSoldier(@RequestBody SoldierDTO soldierDTO) {
+        soldierService.createSoldier(soldierDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity updateSoldier(@PathVariable() Long id,
-                                        @RequestBody Soldier soldier) {
-        soldierService.updateSoldier(id, soldier);
+    public ResponseEntity updateSoldier(@PathVariable Long id,
+                                        @RequestBody SoldierEditRequest soldierEditRequest) {
+        soldierService.updateSoldier(id, soldierEditRequest);
         return ResponseEntity.ok().build();
     }
 

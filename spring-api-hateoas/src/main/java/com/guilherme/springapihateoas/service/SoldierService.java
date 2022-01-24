@@ -3,16 +3,13 @@ package com.guilherme.springapihateoas.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.guilherme.springapihateoas.controller.request.SoldierEditRequest;
 import com.guilherme.springapihateoas.controller.response.SoldierResponse;
-import com.guilherme.springapihateoas.dto.Soldier;
+import com.guilherme.springapihateoas.dto.SoldierDTO;
 import com.guilherme.springapihateoas.entity.SoldierEntity;
 import com.guilherme.springapihateoas.repository.SoldierRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.EmptyStackException;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,12 +19,12 @@ public class SoldierService {
     private SoldierRepository soldierRepository;
     private ObjectMapper objectMapper;
 
-    public List<Soldier> listAllSoldiers(){
+    public List<SoldierDTO> listAllSoldiers(){
         List<SoldierEntity> soldierEntityList = soldierRepository.findAll();
-        List<Soldier> streamSoldier = soldierEntityList.stream()
-                .map(it -> objectMapper.convertValue(it, Soldier.class))
+        List<SoldierDTO> streamSoldierDTO = soldierEntityList.stream()
+                .map(it -> objectMapper.convertValue(it, SoldierDTO.class))
                 .collect(Collectors.toList());
-        return streamSoldier;
+        return streamSoldierDTO;
     }
 
     public SoldierResponse findSoldier(Long id) {
@@ -36,25 +33,14 @@ public class SoldierService {
         return soldierResponse;
     }
 
-    public void createSoldier(Soldier soldier){
-        SoldierEntity soldierEntity = objectMapper.convertValue(soldier, SoldierEntity.class);
+    public void createSoldier(SoldierDTO soldierDTO){
+        SoldierEntity soldierEntity = objectMapper.convertValue(soldierDTO, SoldierEntity.class);
         soldierRepository.save(soldierEntity);
     }
 
-    public void updateSoldier(Long id, Soldier soldier) {
-        final Optional<SoldierEntity> optionalSoldier  = soldierRepository.findById(id);
-        final SoldierEntity soldierEntity;
-
-        if(optionalSoldier.isPresent()){
-            soldierEntity = optionalSoldier.get();
-        } else {
-            throw new RuntimeException();
-        }
-        soldierEntity.setName(soldier.getName());
-        soldierEntity.setBreed(soldier.getBreed());
-        soldierEntity.setStatus(soldier.getStatus());
-        soldierEntity.setWeapon(soldier.getWeapon());
-
+    public void updateSoldier(Long id, SoldierEditRequest soldadoEditRequest) {
+        SoldierEntity soldierEntity = objectMapper.convertValue(soldadoEditRequest, SoldierEntity.class);
+        //soldierEntity.setId(id);
         soldierRepository.save(soldierEntity);
     }
 
