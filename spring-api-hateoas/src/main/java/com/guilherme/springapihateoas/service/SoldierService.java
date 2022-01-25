@@ -8,7 +8,9 @@ import com.guilherme.springapihateoas.dto.SoldierDTO;
 import com.guilherme.springapihateoas.entity.SoldierEntity;
 import com.guilherme.springapihateoas.repository.SoldierRepository;
 import com.guilherme.springapihateoas.resource.SoldierResource;
+import org.springframework.hateoas.Resources;
 import org.springframework.stereotype.Service;
+
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,12 +28,12 @@ public class SoldierService {
         this.soldierResource = soldierResource;
     }
 
-    public List<SoldierListResponse> listAllSoldiers(){
+    public Resources<SoldierListResponse> listAllSoldiers(){
         List<SoldierEntity> soldierEntityList = soldierRepository.findAll();
         List<SoldierListResponse> streamSoldierDTO = soldierEntityList.stream()
                 .map(it -> soldierResource.createLink(it))
                 .collect(Collectors.toList());
-        return streamSoldierDTO;
+        return new Resources<>(streamSoldierDTO);
     }
 
     public SoldierResponse findSoldier(Long id) {
@@ -47,7 +49,7 @@ public class SoldierService {
 
     public void updateSoldier(Long id, SoldierEditRequest soldadoEditRequest) {
         SoldierEntity soldierEntity = objectMapper.convertValue(soldadoEditRequest, SoldierEntity.class);
-        //soldierEntity.setId(id);
+        soldierEntity.setId(id);
         soldierRepository.save(soldierEntity);
     }
 

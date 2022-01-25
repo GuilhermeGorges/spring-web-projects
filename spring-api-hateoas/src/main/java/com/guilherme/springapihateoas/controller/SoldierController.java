@@ -6,6 +6,7 @@ import com.guilherme.springapihateoas.controller.response.SoldierListResponse;
 import com.guilherme.springapihateoas.controller.response.SoldierResponse;
 import com.guilherme.springapihateoas.dto.SoldierDTO;
 import com.guilherme.springapihateoas.service.SoldierService;
+import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,8 +26,8 @@ public class SoldierController {
     }
 
     @GetMapping
-    public ResponseEntity<List<SoldierListResponse>> listAllSoldier() {
-        List<SoldierListResponse> soldierListResponses = soldierService.listAllSoldiers();
+    public ResponseEntity<Resources<SoldierListResponse>> listAllSoldier() {
+        Resources<SoldierListResponse> soldierListResponses = soldierService.listAllSoldiers();
         return ResponseEntity.status(HttpStatus.OK).body(soldierListResponses);
     }
 
