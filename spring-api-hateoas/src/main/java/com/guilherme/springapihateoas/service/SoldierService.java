@@ -38,7 +38,7 @@ public class SoldierService {
 
     public SoldierResponse findSoldier(Long id) {
         SoldierEntity soldierEntity = soldierRepository.findById(id).orElseThrow();
-        SoldierResponse soldierResponse = objectMapper.convertValue(soldierEntity, SoldierResponse.class);
+        SoldierResponse soldierResponse = soldierResource.createLinkDetail(soldierEntity);
         return soldierResponse;
     }
 

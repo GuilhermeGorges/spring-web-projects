@@ -1,9 +1,10 @@
 package com.guilherme.springapihateoas.controller.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.hateoas.ResourceSupport;
 
 
-public class SoldierResponse {
+public class SoldierResponse extends ResourceSupport {
     private Long id;
     private String name;
     private String breed;

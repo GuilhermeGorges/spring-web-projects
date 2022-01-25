@@ -56,4 +56,9 @@ public class SoldierController {
         return ResponseEntity.ok().build();
     }
 
+    @PutMapping("/front-castle/{id}")
+    public ResponseEntity frontCastle(@PathVariable Long id) {
+        return ResponseEntity.ok().build();
+    }
+
 }
