@@ -2,6 +2,7 @@ package com.guilherme.springapihateoas.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.guilherme.springapihateoas.controller.request.SoldierEditRequest;
+import com.guilherme.springapihateoas.controller.response.SoldierListResponse;
 import com.guilherme.springapihateoas.controller.response.SoldierResponse;
 import com.guilherme.springapihateoas.dto.SoldierDTO;
 import com.guilherme.springapihateoas.service.SoldierService;
@@ -11,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/v1/soldier")
@@ -22,11 +22,9 @@ public class SoldierController {
     private ObjectMapper objectMapper;
 
     @GetMapping
-    public ResponseEntity<List<SoldierResponse>> listAllSoldier() {
-        List<SoldierResponse> soldierResponseList = soldierService.listAllSoldiers().stream()
-                .map(it -> objectMapper.convertValue(it, SoldierResponse.class))
-                .collect(Collectors.toList());
-        return ResponseEntity.status(HttpStatus.OK).body(soldierResponseList);
+    public ResponseEntity<List<SoldierListResponse>> listAllSoldier() {
+        List<SoldierListResponse> soldierListResponses = soldierService.listAllSoldiers();
+        return ResponseEntity.status(HttpStatus.OK).body(soldierListResponses);
     }
 
     @GetMapping("/{id}")

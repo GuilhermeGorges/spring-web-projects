@@ -2,10 +2,12 @@ package com.guilherme.springapihateoas.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.guilherme.springapihateoas.controller.request.SoldierEditRequest;
+import com.guilherme.springapihateoas.controller.response.SoldierListResponse;
 import com.guilherme.springapihateoas.controller.response.SoldierResponse;
 import com.guilherme.springapihateoas.dto.SoldierDTO;
 import com.guilherme.springapihateoas.entity.SoldierEntity;
 import com.guilherme.springapihateoas.repository.SoldierRepository;
+import com.guilherme.springapihateoas.resource.SoldierResource;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,11 +20,12 @@ public class SoldierService {
 
     private SoldierRepository soldierRepository;
     private ObjectMapper objectMapper;
+    private SoldierResource soldierResource;
 
-    public List<SoldierDTO> listAllSoldiers(){
+    public List<SoldierListResponse> listAllSoldiers(){
         List<SoldierEntity> soldierEntityList = soldierRepository.findAll();
-        List<SoldierDTO> streamSoldierDTO = soldierEntityList.stream()
-                .map(it -> objectMapper.convertValue(it, SoldierDTO.class))
+        List<SoldierListResponse> streamSoldierDTO = soldierEntityList.stream()
+                .map(it -> soldierResource.createLink(it))
                 .collect(Collectors.toList());
         return streamSoldierDTO;
     }
