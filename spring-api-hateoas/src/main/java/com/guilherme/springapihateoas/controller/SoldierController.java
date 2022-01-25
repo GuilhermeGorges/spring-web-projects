@@ -6,7 +6,6 @@ import com.guilherme.springapihateoas.controller.response.SoldierListResponse;
 import com.guilherme.springapihateoas.controller.response.SoldierResponse;
 import com.guilherme.springapihateoas.dto.SoldierDTO;
 import com.guilherme.springapihateoas.service.SoldierService;
-import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,11 +14,15 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/v1/soldier")
-@AllArgsConstructor
 public class SoldierController {
 
     private SoldierService soldierService;
     private ObjectMapper objectMapper;
+
+    public SoldierController(SoldierService soldierService, ObjectMapper objectMapper) {
+        this.soldierService = soldierService;
+        this.objectMapper = objectMapper;
+    }
 
     @GetMapping
     public ResponseEntity<List<SoldierListResponse>> listAllSoldier() {

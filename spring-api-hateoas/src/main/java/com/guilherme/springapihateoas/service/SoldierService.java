@@ -8,19 +8,23 @@ import com.guilherme.springapihateoas.dto.SoldierDTO;
 import com.guilherme.springapihateoas.entity.SoldierEntity;
 import com.guilherme.springapihateoas.repository.SoldierRepository;
 import com.guilherme.springapihateoas.resource.SoldierResource;
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@AllArgsConstructor
 public class SoldierService {
 
     private SoldierRepository soldierRepository;
     private ObjectMapper objectMapper;
     private SoldierResource soldierResource;
+
+    public SoldierService(SoldierRepository soldierRepository, ObjectMapper objectMapper, SoldierResource soldierResource) {
+        this.soldierRepository = soldierRepository;
+        this.objectMapper = objectMapper;
+        this.soldierResource = soldierResource;
+    }
 
     public List<SoldierListResponse> listAllSoldiers(){
         List<SoldierEntity> soldierEntityList = soldierRepository.findAll();

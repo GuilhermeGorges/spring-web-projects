@@ -1,12 +1,8 @@
 package com.guilherme.springapihateoas.controller.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.hateoas.ResourceSupport;
 
-@Getter
-@Setter
 public class SoldierListResponse extends ResourceSupport {
     private Long id;
     private String name;
@@ -21,5 +17,21 @@ public class SoldierListResponse extends ResourceSupport {
     @JsonProperty("id")
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getBreed() {
+        return breed;
+    }
+
+    public void setBreed(String breed) {
+        this.breed = breed;
     }
 }
