@@ -1,10 +1,12 @@
 package com.guilherme.springapihateoas.dto;
 
+import com.guilherme.springapihateoas.enums.Breed;
+
 public class SoldierDTO {
 
     private Long id;
     private String name;
-    private String breed;
+    private Breed breed;
     private String weapon;
     private String status;
 
@@ -24,11 +26,11 @@ public class SoldierDTO {
         this.name = name;
     }
 
-    public String getBreed() {
+    public Breed getBreed() {
         return breed;
     }
 
-    public void setBreed(String breed) {
+    public void setBreed(Breed breed) {
         this.breed = breed;
     }
 
