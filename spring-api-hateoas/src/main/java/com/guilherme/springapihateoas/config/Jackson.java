@@ -1,9 +1,13 @@
 package com.guilherme.springapihateoas.config;
 
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -37,7 +41,7 @@ public class Jackson {
     public SimpleModule breedModuleMapper(){
         SimpleModule dataModule = new SimpleModule("JSONBreedModule", PackageVersion.VERSION);
         dataModule.addSerializer(Breed.class, new BreedSerialize());
-        //dataModule.addDeserializer(Breed.class, new BreedUnserialize());
+        dataModule.addDeserializer(Breed.class, new BreedDeserialize());
         return dataModule;
     }
 
@@ -46,8 +50,20 @@ public class Jackson {
             super(Breed.class);
         }
 
+        @Override
         public void serialize(Breed breed, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException{
-            jsonGenerator.writeString(breed.name());
+            jsonGenerator.writeString(breed.getValue());
+        }
+    }
+
+    class BreedDeserialize extends StdDeserializer<Breed> {
+        public BreedDeserialize(){
+            super(Breed.class);
+        }
+
+        @Override
+        public Breed deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+            return Breed.valueOf(jsonParser.getText());
         }
     }
 }

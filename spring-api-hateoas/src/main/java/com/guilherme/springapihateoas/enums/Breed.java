@@ -15,4 +15,8 @@ public enum Breed {
     Breed(String value) {
         this.value = value;
     }
+
+    public String getValue(){
+        return value;
+    }
 }
