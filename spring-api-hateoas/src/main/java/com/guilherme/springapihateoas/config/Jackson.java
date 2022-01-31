@@ -63,7 +63,7 @@ public class Jackson {
 
         @Override
         public Breed deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
-            return Breed.valueOf(jsonParser.getText());
+            return Breed.of(jsonParser.getText());
         }
     }
 }
